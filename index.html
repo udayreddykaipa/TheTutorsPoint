@@ -13,23 +13,51 @@
 </head>
 
 <body>
-
-    <div class="card">
-        <div id="firebaseui-auth-container"></div>
+    <div id="TutorPoint">
+        <!-- show spinner -->
+        <div style="text-align: center;padding: 10%;">
+            <div class="spinner-grow text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 
-
-
-    <script defer src="/__/firebase/8.1.2/firebase-app.js"></script>
+    <div>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Full Name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script> -->
     <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-database.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-storage.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-analytics.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-remote-config.js"></script>
-    <script defer src="/__/firebase/8.1.2/firebase-performance.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-remote-config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-performance.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -55,37 +83,65 @@
         firebase.analytics();
         // Initialize the FirebaseUI Widget using Firebase.
 
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        ui.start('#firebaseui-auth-container', {
-            callbacks: {
-                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-                    // User successfully signed in.
-                    // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
-                    return true;
-                },
-                uiShown: function () {
-                    // The widget is rendered.
-                    // Hide the loader.
-                    // document.getElementById('loader').style.display = 'none';
-                }
-            },
-            signInSuccessUrl: '#',
-            signInFlow: 'popup',
-            signInOptions: [
-                // List of OAuth providers supported.
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                firebase.auth.GithubAuthProvider.PROVIDER_ID
-            ],
-            // Terms of service url.
-            tosUrl: '#',
-            // Privacy policy url.
-            privacyPolicyUrl: '#'
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                var uid = user.uid;
+                // load page
+            } else {
+
+                loadScript("login.js", () => {
+                    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+                    ui.start('#firebaseui-auth-container', {
+                        callbacks: {
+                            signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                                // User successfully signed in.
+                                // Return type determines whether we continue the redirect automatically
+                                // or whether we leave that to developer to handle.
+                                return true;
+                            },
+                            uiShown: function () {
+                                // The widget is rendered.
+                                // Hide the loader.
+                                // document.getElementById('loader').style.display = 'none';
+                            }
+                        },
+                        signInSuccessUrl: '#',
+                        signInFlow: 'popup',
+                        signInOptions: [
+                            // List of OAuth providers supported.
+                            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+                            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                            firebase.auth.GithubAuthProvider.PROVIDER_ID
+                        ],
+                        // Terms of service url.
+                        tosUrl: '#',
+                        // Privacy policy url.
+                        privacyPolicyUrl: '#'
+                    });
+
+                })
+            }
         });
 
+        function loadScript(url, callback) {
+            // adding the script tag to the head as suggested before
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+
+            // then bind the event to the callback function 
+            // there are several events for cross browser compatibility
+            script.onreadystatechange = callback;
+            script.onload = callback;
+
+            // fire the loading
+            head.appendChild(script);
+        }
 
 
     </script>
