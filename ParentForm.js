@@ -57,7 +57,7 @@ function showPosition(position) {
 }
 
 document.getElementById('s').addEventListener('click', e => {
-    console.log("sedj");
+    console.log("callledj");
     var db = firebase.firestore();
     // Add a second document with a generated ID.
     db.collection("Parents").add({
