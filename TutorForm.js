@@ -41,7 +41,7 @@ document.getElementById('TutorPoint').innerHTML = `    <div class="card" style="
         <input required type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
-    <button type="submit" class="btn btn-primary" id="si">Submit</button>
+    <button type="submit" class="btn btn-primary" id="s">Submit</button>
 </form>
 </div>`;
 

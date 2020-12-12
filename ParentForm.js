@@ -8,16 +8,13 @@ document.getElementById('TutorPoint').innerHTML = `    <div class="card" style="
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
             else.</small>
     </div>
-    <div class="form-group">
-        <label for="exampleInputfull">Full Name</label>
-        <input required type="text" class="form-control" id="exampleInputfull">
-    </div>
+ 
     <div class="form-group">
         <label for="exampleInputName">display Name</label>
         <input required type="text" class="form-control" id="exampleInputName">
     </div>
     <div class="form-group">
-        <label for="exampleInputAge">Age</label>
+        <label for="exampleInputAge">Student Age</label>
         <input required type="number" class="form-control" id="exampleInputAge">
     </div>
     <div class="form-group">
@@ -30,14 +27,14 @@ document.getElementById('TutorPoint').innerHTML = `    <div class="card" style="
         <small id="locationS" class="form-text text-muted">Need to GeoLocation to find nearby tutors</small>
     </div>
     <div class="form-group">
-        <label for="exampleInputExperience">Experience</label>
-        <input required type="number" class="form-control" id="exampleInputExperience">
+        <label for="exampleInputStandard">Standard</label>
+        <input required type="number" class="form-control" id="exampleInputStandard">
     </div>
     <div class="form-group form-check">
         <input required type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
-    <button type="submit" class="btn btn-primary" id="si">Submit</button>
+    <button type="submit" class="btn btn-primary" id="s">Submit</button>
 </form>
 </div>`;
 
@@ -63,7 +60,7 @@ document.getElementById('s').addEventListener('click', e => {
     console.log("sedj");
     var db = firebase.firestore();
     // Add a second document with a generated ID.
-    db.collection("Tutors").add({
+    db.collection("Parents").add({
         Age: "Alan",
         Email: "Mathison",
         Experience: "Turing",
